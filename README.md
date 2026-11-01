@@ -14,13 +14,14 @@ Lambda Python (Alexa-hosted)
    ↓ APL RenderDocument + ExecuteCommands(OpenURL)
    ↓
 Navigateur du device Alexa
-   ↓ GET https://JEEDOM_URL/plugins/alexaapiv2/core/php/jeeViewer.php?apikey=...&object_name=Cuisine
+   ↓ GET https://JEEDOM_URL/plugins/alexaapiv2/core/php/jeeViewer.php?t=…&view=…&object_name=Cuisine&sig=…
    ↓
 Endpoint Jeedom (alexaapiv2 plugin) :
-  - Auth via apikey
-  - Auto-login Jeedom natif (plus de dépendance autologin)
-  - Adapter la vue selon viewport (mobile/desktop)
-  - Redirige vers la vue Jeedom appropriée
+  - Adresse signée HMAC (clé du plugin, jamais dans l'adresse), valable 60 s
+  - Auto-login Jeedom natif (utilisateur dédié alexa_viewer, plus de dépendance autologin)
+  - Version mobile ou bureau selon la taille de l'écran
+  - Redirige vers le dashboard de l'objet demandé, sinon vers la page choisie
+    dans la configuration du plugin (« Page affichée par défaut »)
 ```
 
 ## Invocations
@@ -42,15 +43,22 @@ Langues : français (fr-FR, fr-CA, « afficheur jeedom »), anglais (en-US, en-G
 | `JEEDOM_APIKEY` | clé API du plugin alexaapiv2 (`jeedom::getApiKey('alexaapiv2')`) : signe l'adresse, n'y apparaît jamais |
 | `VERIFY_SSL`, `DEBUG` | format commun aux skills du plugin |
 
-Installation à la main : renseigner `lambda/config.py` (valeurs entre guillemets, `True` / `False` sans guillemets). Une faute de frappe laisse les réglages vides au lieu de faire planter le skill.
+## Installation
 
-Le déploiement est automatisé par le plugin alexaapiv2 (action AJAX `deployJeeViewerSkill`).
+**Avec le plugin alexaapiv2** : page du plugin → **Déployer Skill JeeViewer**. Le plugin télécharge ce dépôt, écrit `lambda/config.py`, puis crée ou met à jour le skill sur votre compte développeur Amazon.
+
+**À la main**, tout se fait dans la [console développeur Alexa](https://developer.amazon.com/alexa/console/ask) :
+
+1. **Create Skill** : modèle **Custom**, hébergement **Alexa-hosted (Python)**, région EU (Ireland), modèle de départ **Import skill** avec l'URL de ce dépôt (`https://github.com/limad/alexaSkill_jeeViewer.git`). Amazon importe tout : le code (`lambda/`), la fiche avec l'écran APL (`skill-package/skill.json`), les icônes et les modèles vocaux de chaque langue.
+2. Onglet **Code** : ouvrez `lambda/config.py`, renseignez-le (valeurs entre guillemets, `True` / `False` sans guillemets), puis **Save** et **Deploy**. Une faute de frappe laisse les réglages vides au lieu de faire planter le skill.
+3. Onglet **Build** : **Build skill**.
+4. Onglet **Test** → *Development*, ou sur l'Echo Show : « Alexa, ouvre afficheur jeedom ».
 
 ## Prérequis Jeedom
 
 - Plugin **alexaapiv2** installé et configuré
 - Endpoint `/plugins/alexaapiv2/core/php/jeeViewer.php` disponible (fourni par le plugin)
-- Jeedom accessible publiquement en HTTPS avec certificat valide (Let's Encrypt OK)
+- Jeedom joignable par l'Echo Show : adresse interne par défaut (l'écran est sur le réseau local), adresse externe HTTPS si `urlMode` = `external`
 
 **Note** : la dépendance au plugin tiers `autologin` de la version originale a été **supprimée**. Le plugin `alexaapiv2` fournit son propre endpoint d'auto-login.
 
