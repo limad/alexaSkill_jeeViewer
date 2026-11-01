@@ -17,6 +17,7 @@
 
 import hashlib
 import hmac
+import importlib.util
 import json
 import logging
 import os
@@ -37,7 +38,25 @@ from ask_sdk_model.interfaces.alexa.presentation.apl import (
     OpenUrlCommand,
 )
 
-from config import JEEDOM_URL, APIKEY, DEBUG, VERIFY_SSL  # noqa: F401
+
+
+def load_config(path):
+    """Lit config.py sans jamais lever d'exception : une faute de frappe laisse les
+    réglages vides au lieu de faire planter le skill."""
+    try:
+        spec = importlib.util.spec_from_file_location("skill_config", path)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        return {k: v for k, v in vars(module).items() if k.isupper()}
+    except Exception as exc:  # SyntaxError, fichier absent…
+        logging.getLogger(__name__).error("config.py illisible : %s", exc)
+        return {}
+
+
+CONFIG = load_config(os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.py"))
+JEEDOM_URL = str(CONFIG.get("JEEDOM_URL") or "")
+APIKEY = str(CONFIG.get("JEEDOM_APIKEY") or "")
+DEBUG = bool(CONFIG.get("DEBUG", False))
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG if DEBUG else logging.INFO)

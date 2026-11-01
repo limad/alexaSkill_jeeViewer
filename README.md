@@ -32,14 +32,15 @@ Endpoint Jeedom (alexaapiv2 plugin) :
 | *« Alexa, demande à afficheur jeedom de montrer le **salon** »* | Vue de l'objet "Salon" |
 | *« Alexa, demande à afficheur jeedom **page 5** »* | Legacy : vue par object_id Jeedom |
 
-## Placeholders injectés au déploiement
+## Réglages (`lambda/config.py`)
 
-| Placeholder | Source | Fichier |
-|---|---|---|
-| `{{LAMBDA_ARN}}` | auto-généré Amazon | `skill.json` |
-| `{{JEEDOM_URL}}` | `network::getNetworkAccess('external')` | `lambda/config.py` |
-| `{{APIKEY}}` | `jeedom::getApiKey('alexaapiv2')` | `lambda/config.py` |
-| `{{DEBUG}}`, `{{VERIFY_SSL}}` | config plugin | `lambda/config.py` |
+| Réglage | Valeur écrite au déploiement |
+|---|---|
+| `JEEDOM_URL` | adresse interne de Jeedom (`network::getNetworkAccess('internal')`), externe en repli ou si `urlMode` = `external` |
+| `JEEDOM_APIKEY` | clé API du plugin alexaapiv2 (`jeedom::getApiKey('alexaapiv2')`) : signe l'adresse, n'y apparaît jamais |
+| `VERIFY_SSL`, `DEBUG` | format commun aux skills du plugin |
+
+Installation à la main : renseigner `lambda/config.py` (valeurs entre guillemets, `True` / `False` sans guillemets). Une faute de frappe laisse les réglages vides au lieu de faire planter le skill.
 
 Le déploiement est automatisé par le plugin alexaapiv2 (action AJAX `deployJeeViewerSkill`).
 
@@ -55,13 +56,15 @@ Le déploiement est automatisé par le plugin alexaapiv2 (action AJAX `deployJee
 
 ```
 .
-├── skill.json                                — Manifest Alexa avec viewports + locales
-├── interactionModels/custom/
-│   ├── fr-FR.json                            — Intents + slots OpenObjectIntent / OpenPageIntent
-│   └── fr-CA.json
+├── skill-package/                            — lu par Amazon à l'import GitHub
+│   ├── skill.json                            — Manifest Alexa avec viewports + locales
+│   ├── assets/images/                        — icônes
+│   └── interactionModels/custom/
+│       ├── fr-FR.json                        — Intents + slots OpenObjectIntent / OpenPageIntent
+│       └── fr-CA.json
 ├── lambda/
 │   ├── lambda_function.py                    — Handlers ASK SDK
-│   ├── config.py                             — Placeholders config (réécrit au déploiement)
+│   ├── config.py                             — Réglages (réécrit au déploiement)
 │   ├── requirements.txt                      — ask-sdk-core uniquement
 │   ├── apl_splash.json                       — APL splash écran d'accueil
 │   └── apl_empty.json                        — APL minimal (déclencheur OpenURL)

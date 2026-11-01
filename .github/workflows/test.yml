@@ -18,10 +18,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
-      - name: Syntax check (skip placeholders {{...}})
+      - name: Syntax check
         run: |
-          # config.py contient des placeholders Jinja-like — on ne le parse pas
-          python -c "import ast; ast.parse(open('lambda/lambda_function.py').read()); print('lambda OK')"
+          python -c "import ast; [ast.parse(open(f).read()) for f in ('lambda/lambda_function.py', 'lambda/config.py')]; print('lambda OK')"
 
   json-validate:
     name: Validate JSON
@@ -29,7 +28,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
-          for f in skill.json interactionModels/custom/*.json lambda/*.json; do
+          for f in skill-package/skill.json skill-package/interactionModels/custom/*.json lambda/*.json; do
             python -m json.tool "$f" > /dev/null && echo "✓ $f" || { echo "✗ $f"; exit 1; }
           done
 
@@ -41,7 +40,7 @@ jobs:
       - run: |
           python -c "
           import json
-          m = json.load(open('skill.json'))
+          m = json.load(open('skill-package/skill.json'))
           assert 'manifest' in m
           assert m['manifest'].get('apis', {}).get('custom'), 'apis.custom required'
           interfaces = m['manifest']['apis']['custom'].get('interfaces', [])
