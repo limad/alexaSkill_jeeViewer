@@ -49,9 +49,9 @@ Langues : français (fr-FR, fr-CA, « afficheur jeedom »), anglais (en-US, en-G
 
 **À la main**, tout se fait dans la [console développeur Alexa](https://developer.amazon.com/alexa/console/ask) :
 
-1. **Create Skill** : modèle **Custom**, hébergement **Alexa-hosted (Python)**, région EU (Ireland), modèle de départ **Import skill** avec l'URL de ce dépôt (`https://github.com/limad/alexaSkill_jeeViewer.git`). Amazon importe tout : le code (`lambda/`), la fiche avec l'écran APL (`skill-package/skill.json`), les icônes et les modèles vocaux de chaque langue.
+1. **Create Skill** : modèle **Custom**, hébergement **Alexa-hosted (Python)**, région EU (Ireland), modèle de départ **Import skill** avec l'URL de ce dépôt (`https://github.com/limad/alexaSkill_jeeViewer.git`). Amazon importe le code (`lambda/`), la fiche avec l'écran APL (`skill-package/skill.json`), les icônes et le modèle vocal de la langue choisie dans le formulaire (et ses variantes), puis le compile. Le nom du skill est celui tapé dans le formulaire.
 2. Onglet **Code** : ouvrez `lambda/config.py`, renseignez-le (valeurs entre guillemets, `True` / `False` sans guillemets), puis **Save** et **Deploy**. Une faute de frappe laisse les réglages vides au lieu de faire planter le skill.
-3. Onglet **Build** : **Build skill**.
+3. Autre langue : *Build* → *Language settings* → ajoutez-la, collez `skill-package/interactionModels/custom/<langue>.json` dans le *JSON Editor*, puis **Build skill**.
 4. Onglet **Test** → *Development*, ou sur l'Echo Show : « Alexa, ouvre afficheur jeedom ».
 
 ## Prérequis Jeedom
