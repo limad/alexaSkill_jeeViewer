@@ -15,6 +15,7 @@
 # L'endpoint Jeedom (jeeViewer.php) gère l'auto-login via l'apikey du plugin —
 # plus besoin du plugin tiers "autologin".
 
+import glob
 import hashlib
 import hmac
 import json
@@ -55,6 +56,47 @@ def load_config(path):
 
 
 CONFIG = load_config(os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.py"))
+
+# ─── Textes parlés : locale/<langue>.lang (comme Frida / HomeAssistantAssist) ──
+LOCALE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "locale")
+DEFAULT_LOCALE = "en-US"
+_TEXTS = {}
+
+
+def _read_lang(path):
+    """Fichier `clé=valeur` (lignes vides et `#` ignorées)."""
+    texts = {}
+    try:
+        with open(path, encoding="utf-8") as f:
+            for raw in f:
+                line = raw.strip()
+                if line and not line.startswith("#") and "=" in line:
+                    key, value = line.split("=", 1)
+                    texts[key.strip()] = value.strip()
+    except OSError:
+        pass
+    return texts
+
+
+def texts_for(locale):
+    """Textes de la langue de l'Echo (même langue d'un autre pays sinon, ex. fr-CA → fr-FR),
+    complétés par l'anglais."""
+    locale = locale or DEFAULT_LOCALE
+    if locale not in _TEXTS:
+        texts = _read_lang(os.path.join(LOCALE_DIR, DEFAULT_LOCALE + ".lang"))
+        path = os.path.join(LOCALE_DIR, locale + ".lang")
+        if not os.path.exists(path):
+            same = sorted(glob.glob(os.path.join(LOCALE_DIR, locale.split("-")[0] + "-*.lang")))
+            path = same[0] if same else None
+        if path:
+            texts.update(_read_lang(path))
+        _TEXTS[locale] = texts
+    return _TEXTS[locale]
+
+
+def _t(handler_input, key, *args):
+    text = texts_for(getattr(handler_input.request_envelope.request, "locale", None)).get(key, key)
+    return text.format(*args) if args else text
 JEEDOM_URL = str(CONFIG.get("JEEDOM_URL") or "")
 APIKEY = str(CONFIG.get("JEEDOM_APIKEY") or "")
 DEBUG = bool(CONFIG.get("DEBUG", False))
@@ -155,7 +197,7 @@ class LaunchRequestHandler(AbstractRequestHandler):
         logger.info("LaunchRequest")
         url = _build_url(handler_input)
         rb = _render_then_open(handler_input, url, splash="apl_splash.json")
-        return rb.speak("Affichage de votre tableau de bord Jeedom.").response
+        return rb.speak(_t(handler_input, "launch")).response
 
 
 class OpenObjectIntentHandler(AbstractRequestHandler):
@@ -169,13 +211,11 @@ class OpenObjectIntentHandler(AbstractRequestHandler):
         slot = ask_utils.request_util.get_slot(handler_input, "ObjectName")
         object_name = slot.value if slot and slot.value else None
         if not object_name:
-            return handler_input.response_builder.speak(
-                "Je n'ai pas compris le nom de la pièce."
-            ).response
+            return handler_input.response_builder.speak(_t(handler_input, "no_object")).response
 
         url = _build_url(handler_input, object_name=object_name)
         rb = _render_then_open(handler_input, url)
-        return rb.speak(f"Affichage de {object_name}.").response
+        return rb.speak(_t(handler_input, "open_object", object_name)).response
 
 
 class OpenPageIntentHandler(AbstractRequestHandler):
@@ -191,7 +231,7 @@ class OpenPageIntentHandler(AbstractRequestHandler):
 
         url = _build_url(handler_input, object_id=page_id)
         rb = _render_then_open(handler_input, url)
-        return rb.speak(f"Affichage de la page {page_id}.").response
+        return rb.speak(_t(handler_input, "open_page", page_id)).response
 
 
 class HelpIntentHandler(AbstractRequestHandler):
@@ -199,12 +239,7 @@ class HelpIntentHandler(AbstractRequestHandler):
         return ask_utils.is_intent_name("AMAZON.HelpIntent")(handler_input)
 
     def handle(self, handler_input):
-        speak = (
-            "Avec ce skill vous pouvez afficher votre tableau de bord Jeedom. "
-            "Dites par exemple : ouvre la cuisine, ouvre le salon, ou simplement "
-            "ouvre afficheur jeedom pour la vue par défaut."
-        )
-        return handler_input.response_builder.speak(speak).ask("Quelle pièce voulez-vous afficher ?").response
+        return handler_input.response_builder.speak(_t(handler_input, "help")).ask(_t(handler_input, "help_reprompt")).response
 
 
 class CancelOrStopIntentHandler(AbstractRequestHandler):
@@ -215,7 +250,7 @@ class CancelOrStopIntentHandler(AbstractRequestHandler):
         )
 
     def handle(self, handler_input):
-        return handler_input.response_builder.speak("À bientôt !").response
+        return handler_input.response_builder.speak(_t(handler_input, "goodbye")).response
 
 
 class FallbackIntentHandler(AbstractRequestHandler):
@@ -223,9 +258,7 @@ class FallbackIntentHandler(AbstractRequestHandler):
         return ask_utils.is_intent_name("AMAZON.FallbackIntent")(handler_input)
 
     def handle(self, handler_input):
-        return handler_input.response_builder.speak(
-            "Je n'ai pas compris. Dites par exemple : ouvre la cuisine, ou demandez de l'aide."
-        ).ask("Que voulez-vous afficher ?").response
+        return handler_input.response_builder.speak(_t(handler_input, "fallback")).ask(_t(handler_input, "fallback_reprompt")).response
 
 
 class SessionEndedRequestHandler(AbstractRequestHandler):
@@ -243,9 +276,7 @@ class CatchAllExceptionHandler(AbstractExceptionHandler):
 
     def handle(self, handler_input, exception):
         logger.error("Skill error: %s", exception, exc_info=True)
-        return handler_input.response_builder.speak(
-            "Une erreur est survenue lors de l'affichage. Vérifiez la connexion à votre Jeedom."
-        ).response
+        return handler_input.response_builder.speak(_t(handler_input, "error")).response
 
 
 # ─── Skill builder ────────────────────────────────────────────────────────

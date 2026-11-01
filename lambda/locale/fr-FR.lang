@@ -1,0 +1,11 @@
+# Textes parlés du skill JeeViewer (une ligne clé=valeur ; {} = nom de la pièce ou numéro de page)
+launch=Affichage de votre tableau de bord Jeedom.
+open_object=Affichage de {}.
+open_page=Affichage de la page {}.
+no_object=Je n'ai pas compris le nom de la pièce.
+help=Avec ce skill vous pouvez afficher votre tableau de bord Jeedom. Dites par exemple : ouvre la cuisine, ouvre le salon, ou simplement ouvre afficheur jeedom pour la vue par défaut.
+help_reprompt=Quelle pièce voulez-vous afficher ?
+goodbye=À bientôt !
+fallback=Je n'ai pas compris. Dites par exemple : ouvre la cuisine, ou demandez de l'aide.
+fallback_reprompt=Que voulez-vous afficher ?
+error=Une erreur est survenue lors de l'affichage. Vérifiez la connexion à votre Jeedom.

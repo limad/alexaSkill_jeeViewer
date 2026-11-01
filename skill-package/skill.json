@@ -7,41 +7,101 @@
 					"uri": "arn:aws:lambda:eu-west-1:571600828883:function:33006444-3f6b-4bbb-9946-378e535f5288:Release_0"
 				},
 				"regions": {
-					"EU": { "endpoint": { "uri": "arn:aws:lambda:eu-west-1:571600828883:function:33006444-3f6b-4bbb-9946-378e535f5288:Release_0" } },
-					"NA": { "endpoint": { "uri": "arn:aws:lambda:us-east-1:571600828883:function:33006444-3f6b-4bbb-9946-378e535f5288:Release_0" } },
-					"FE": { "endpoint": { "uri": "arn:aws:lambda:us-west-2:571600828883:function:33006444-3f6b-4bbb-9946-378e535f5288:Release_0" } }
+					"EU": {
+						"endpoint": {
+							"uri": "arn:aws:lambda:eu-west-1:571600828883:function:33006444-3f6b-4bbb-9946-378e535f5288:Release_0"
+						}
+					},
+					"NA": {
+						"endpoint": {
+							"uri": "arn:aws:lambda:us-east-1:571600828883:function:33006444-3f6b-4bbb-9946-378e535f5288:Release_0"
+						}
+					},
+					"FE": {
+						"endpoint": {
+							"uri": "arn:aws:lambda:us-west-2:571600828883:function:33006444-3f6b-4bbb-9946-378e535f5288:Release_0"
+						}
+					}
 				},
 				"interfaces": [
-					{ "type": "ALEXA_PRESENTATION_APL" }
+					{
+						"type": "ALEXA_PRESENTATION_APL"
+					}
 				]
 			}
 		},
 		"publishingInformation": {
 			"automaticClonedLocale": {
-				"locales": [{ "source": "fr-FR" }]
+				"locales": [
+					{
+						"source": "fr-FR"
+					}
+				]
 			},
 			"locales": {
 				"fr-FR": {
-					"description": "Affiche votre tableau de bord Jeedom sur les appareils Alexa avec écran (Echo Show, Hub, Fire TV).",
+					"description": "Skill du plugin Jeedom Alexa Premium : affiche votre tableau de bord Jeedom, ou la vue d'une pièce, sur les appareils Alexa avec écran (Echo Show, Echo Hub, Fire TV).",
 					"examplePhrases": [
 						"Alexa, ouvre afficheur jeedom",
 						"Alexa, demande à afficheur jeedom d'ouvrir la cuisine",
 						"Alexa, demande à afficheur jeedom de montrer le salon"
 					],
 					"keywords": [],
-					"name": "AlexaPremium_JeeViewer",
+					"name": "premiumJeeViewer",
 					"summary": "Afficheur Jeedom pour Alexa"
 				},
 				"fr-CA": {
-					"description": "Affiche votre tableau de bord Jeedom sur les appareils Alexa avec écran (Echo Show, Hub, Fire TV).",
+					"description": "Skill du plugin Jeedom Alexa Premium : affiche votre tableau de bord Jeedom, ou la vue d'une pièce, sur les appareils Alexa avec écran (Echo Show, Echo Hub, Fire TV).",
 					"examplePhrases": [
 						"Alexa, ouvre afficheur jeedom",
 						"Alexa, demande à afficheur jeedom d'ouvrir la cuisine",
 						"Alexa, demande à afficheur jeedom de montrer le salon"
 					],
 					"keywords": [],
-					"name": "AlexaPremium_JeeViewer",
+					"name": "premiumJeeViewer",
 					"summary": "Afficheur Jeedom pour Alexa"
+				},
+				"de-DE": {
+					"name": "premiumJeeViewer",
+					"summary": "Jeedom-Anzeige für Alexa",
+					"description": "Skill des Jeedom-Plugins Alexa Premium: zeigt dein Jeedom-Dashboard oder die Ansicht eines Raums auf Alexa-Geräten mit Bildschirm an (Echo Show, Echo Hub, Fire TV).",
+					"examplePhrases": [
+						"Alexa, öffne jeedom anzeige",
+						"Alexa, sag jeedom anzeige, zeige die Küche",
+						"Alexa, sag jeedom anzeige, öffne das Wohnzimmer"
+					],
+					"keywords": [
+						"Jeedom",
+						"Hausautomation"
+					]
+				},
+				"en-US": {
+					"name": "premiumJeeViewer",
+					"summary": "Jeedom display for Alexa",
+					"description": "Skill of the Jeedom Alexa Premium plugin: shows your Jeedom dashboard, or a room's view, on Alexa devices with a screen (Echo Show, Echo Hub, Fire TV).",
+					"examplePhrases": [
+						"Alexa, open jeedom display",
+						"Alexa, ask jeedom display to show the kitchen",
+						"Alexa, ask jeedom display to open the living room"
+					],
+					"keywords": [
+						"Jeedom",
+						"home automation"
+					]
+				},
+				"es-ES": {
+					"name": "premiumJeeViewer",
+					"summary": "Pantalla Jeedom para Alexa",
+					"description": "Skill del plugin Jeedom Alexa Premium: muestra tu panel de Jeedom, o la vista de una habitación, en los dispositivos Alexa con pantalla (Echo Show, Echo Hub, Fire TV).",
+					"examplePhrases": [
+						"Alexa, abre pantalla jeedom",
+						"Alexa, pide a pantalla jeedom que muestre la cocina",
+						"Alexa, pide a pantalla jeedom que abra el salón"
+					],
+					"keywords": [
+						"Jeedom",
+						"domótica"
+					]
 				}
 			}
 		}

@@ -1,0 +1,11 @@
+# Spoken texts of the JeeViewer skill (one key=value per line; {} = room name or page number)
+launch=Showing your Jeedom dashboard.
+open_object=Showing {}.
+open_page=Showing page {}.
+no_object=I did not understand the room name.
+help=With this skill you can show your Jeedom dashboard. Say for example: show the kitchen, show the living room, or just open jeedom display for the default view.
+help_reprompt=Which room do you want to show?
+goodbye=Goodbye!
+fallback=Sorry, I did not understand. Say for example: show the kitchen, or ask for help.
+fallback_reprompt=What do you want to show?
+error=Something went wrong while displaying. Check the connection to your Jeedom.

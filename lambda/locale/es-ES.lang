@@ -1,0 +1,11 @@
+# Textos hablados de la skill JeeViewer (una línea clave=valor; {} = nombre de la habitación o número de página)
+launch=Mostrando tu panel de Jeedom.
+open_object=Mostrando {}.
+open_page=Mostrando la página {}.
+no_object=No he entendido el nombre de la habitación.
+help=Con esta skill puedes mostrar tu panel de Jeedom. Di por ejemplo: muestra la cocina, muestra el salón, o simplemente abre pantalla jeedom para la vista por defecto.
+help_reprompt=¿Qué habitación quieres mostrar?
+goodbye=¡Hasta pronto!
+fallback=No te he entendido. Di por ejemplo: muestra la cocina, o pide ayuda.
+fallback_reprompt=¿Qué quieres mostrar?
+error=Se ha producido un error al mostrar la página. Comprueba la conexión con tu Jeedom.

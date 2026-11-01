@@ -1,0 +1,11 @@
+# Gesprochene Texte des Skills JeeViewer (eine Zeile Schlüssel=Wert; {} = Raumname oder Seitennummer)
+launch=Dein Jeedom-Dashboard wird angezeigt.
+open_object={} wird angezeigt.
+open_page=Seite {} wird angezeigt.
+no_object=Ich habe den Namen des Raums nicht verstanden.
+help=Mit diesem Skill kannst du dein Jeedom-Dashboard anzeigen. Sag zum Beispiel: zeige die Küche, zeige das Wohnzimmer, oder einfach öffne jeedom anzeige für die Standardansicht.
+help_reprompt=Welchen Raum möchtest du anzeigen?
+goodbye=Bis bald!
+fallback=Das habe ich nicht verstanden. Sag zum Beispiel: zeige die Küche, oder frag nach Hilfe.
+fallback_reprompt=Was möchtest du anzeigen?
+error=Beim Anzeigen ist ein Fehler aufgetreten. Prüfe die Verbindung zu deinem Jeedom.

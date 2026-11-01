@@ -32,6 +32,8 @@ Endpoint Jeedom (alexaapiv2 plugin) :
 | *« Alexa, demande à afficheur jeedom de montrer le **salon** »* | Vue de l'objet "Salon" |
 | *« Alexa, demande à afficheur jeedom **page 5** »* | Legacy : vue par object_id Jeedom |
 
+Langues : français (fr-FR, fr-CA, « afficheur jeedom »), anglais (en-US, « jeedom display »), espagnol (es-ES, « pantalla jeedom »), allemand (de-DE, « jeedom anzeige »). Textes parlés dans `lambda/locale/<langue>.lang`.
+
 ## Réglages (`lambda/config.py`)
 
 | Réglage | Valeur écrite au déploiement |
@@ -60,11 +62,11 @@ Le déploiement est automatisé par le plugin alexaapiv2 (action AJAX `deployJee
 │   ├── skill.json                            — Manifest Alexa avec viewports + locales
 │   ├── assets/images/                        — icônes
 │   └── interactionModels/custom/
-│       ├── fr-FR.json                        — Intents + slots OpenObjectIntent / OpenPageIntent
-│       └── fr-CA.json
+│       └── <langue>.json                     — fr-FR, fr-CA, en-US, es-ES, de-DE : OpenObjectIntent / OpenPageIntent
 ├── lambda/
 │   ├── lambda_function.py                    — Handlers ASK SDK
 │   ├── config.py                             — Réglages (réécrit au déploiement)
+│   ├── locale/<langue>.lang                  — Textes parlés (fr-FR, en-US, es-ES, de-DE)
 │   ├── requirements.txt                      — ask-sdk-core uniquement
 │   ├── apl_splash.json                       — APL splash écran d'accueil
 │   └── apl_empty.json                        — APL minimal (déclencheur OpenURL)

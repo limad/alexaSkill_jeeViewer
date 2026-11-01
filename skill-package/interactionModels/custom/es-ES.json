@@ -1,0 +1,70 @@
+{
+	"interactionModel": {
+		"languageModel": {
+			"invocationName": "pantalla jeedom",
+			"intents": [
+				{
+					"name": "AMAZON.CancelIntent",
+					"samples": []
+				},
+				{
+					"name": "AMAZON.HelpIntent",
+					"samples": []
+				},
+				{
+					"name": "AMAZON.StopIntent",
+					"samples": []
+				},
+				{
+					"name": "AMAZON.NavigateHomeIntent",
+					"samples": []
+				},
+				{
+					"name": "AMAZON.FallbackIntent",
+					"samples": []
+				},
+				{
+					"name": "OpenObjectIntent",
+					"slots": [
+						{
+							"name": "ObjectName",
+							"type": "AMAZON.SearchQuery",
+							"samples": []
+						}
+					],
+					"samples": [
+						"muestra {ObjectName}",
+						"muestra la {ObjectName}",
+						"muestra el {ObjectName}",
+						"muéstrame {ObjectName}",
+						"muéstrame la {ObjectName}",
+						"muéstrame el {ObjectName}",
+						"abre {ObjectName}",
+						"abre la {ObjectName}",
+						"abre el {ObjectName}",
+						"enseña {ObjectName}",
+						"vista de {ObjectName}",
+						"vista de la {ObjectName}",
+						"vista del {ObjectName}"
+					]
+				},
+				{
+					"name": "OpenPageIntent",
+					"slots": [
+						{
+							"name": "page",
+							"type": "AMAZON.NUMBER"
+						}
+					],
+					"samples": [
+						"abre la página {page}",
+						"muestra la página {page}",
+						"página {page}",
+						"objeto número {page}"
+					]
+				}
+			],
+			"types": []
+		}
+	}
+}
