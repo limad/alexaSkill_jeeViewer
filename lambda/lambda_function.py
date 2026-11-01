@@ -17,7 +17,6 @@
 
 import hashlib
 import hmac
-import importlib.util
 import json
 import logging
 import os
@@ -43,11 +42,13 @@ from ask_sdk_model.interfaces.alexa.presentation.apl import (
 def load_config(path):
     """Lit config.py sans jamais lever d'exception : une faute de frappe laisse les
     réglages vides au lieu de faire planter le skill."""
+    # Lu et exécuté directement (pas d'import) : aucun cache __pycache__ qui pourrait
+    # resservir une ancienne version du fichier réécrit dans la même seconde.
     try:
-        spec = importlib.util.spec_from_file_location("skill_config", path)
-        module = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(module)
-        return {k: v for k, v in vars(module).items() if k.isupper()}
+        with open(path, encoding="utf-8") as f:
+            values = {}
+            exec(compile(f.read(), path, "exec"), values)
+        return {k: v for k, v in values.items() if k.isupper()}
     except Exception as exc:  # SyntaxError, fichier absent…
         logging.getLogger(__name__).error("config.py illisible : %s", exc)
         return {}
