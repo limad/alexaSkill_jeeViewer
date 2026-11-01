@@ -1,0 +1,69 @@
+{
+	"interactionModel": {
+		"languageModel": {
+			"invocationName": "jeedom display",
+			"intents": [
+				{
+					"name": "AMAZON.CancelIntent",
+					"samples": []
+				},
+				{
+					"name": "AMAZON.HelpIntent",
+					"samples": []
+				},
+				{
+					"name": "AMAZON.StopIntent",
+					"samples": []
+				},
+				{
+					"name": "AMAZON.NavigateHomeIntent",
+					"samples": []
+				},
+				{
+					"name": "AMAZON.FallbackIntent",
+					"samples": []
+				},
+				{
+					"name": "OpenObjectIntent",
+					"slots": [
+						{
+							"name": "ObjectName",
+							"type": "AMAZON.SearchQuery",
+							"samples": []
+						}
+					],
+					"samples": [
+						"show {ObjectName}",
+						"show the {ObjectName}",
+						"show me {ObjectName}",
+						"show me the {ObjectName}",
+						"open {ObjectName}",
+						"open the {ObjectName}",
+						"display {ObjectName}",
+						"display the {ObjectName}",
+						"open the room {ObjectName}",
+						"show the room {ObjectName}",
+						"view of {ObjectName}",
+						"view of the {ObjectName}"
+					]
+				},
+				{
+					"name": "OpenPageIntent",
+					"slots": [
+						{
+							"name": "page",
+							"type": "AMAZON.NUMBER"
+						}
+					],
+					"samples": [
+						"open page {page}",
+						"show page {page}",
+						"page {page}",
+						"object number {page}"
+					]
+				}
+			],
+			"types": []
+		}
+	}
+}

@@ -32,7 +32,7 @@ Endpoint Jeedom (alexaapiv2 plugin) :
 | *« Alexa, demande à afficheur jeedom de montrer le **salon** »* | Vue de l'objet "Salon" |
 | *« Alexa, demande à afficheur jeedom **page 5** »* | Legacy : vue par object_id Jeedom |
 
-Langues : français (fr-FR, fr-CA, « afficheur jeedom »), anglais (en-US, « jeedom display »), espagnol (es-ES, « pantalla jeedom »), allemand (de-DE, « jeedom anzeige »). Textes parlés dans `lambda/locale/<langue>.lang`.
+Langues : français (fr-FR, fr-CA, « afficheur jeedom »), anglais (en-US, en-GB, en-CA, « jeedom display »), espagnol (es-ES, « pantalla jeedom »), allemand (de-DE, « jeedom anzeige »). Textes parlés dans `lambda/locale/<langue>.lang`.
 
 ## Réglages (`lambda/config.py`)
 
@@ -62,7 +62,7 @@ Le déploiement est automatisé par le plugin alexaapiv2 (action AJAX `deployJee
 │   ├── skill.json                            — Manifest Alexa avec viewports + locales
 │   ├── assets/images/                        — icônes
 │   └── interactionModels/custom/
-│       └── <langue>.json                     — fr-FR, fr-CA, en-US, es-ES, de-DE : OpenObjectIntent / OpenPageIntent
+│       └── <langue>.json                     — fr-FR, fr-CA, en-US, en-GB, en-CA, es-ES, de-DE : OpenObjectIntent / OpenPageIntent
 ├── lambda/
 │   ├── lambda_function.py                    — Handlers ASK SDK
 │   ├── config.py                             — Réglages (réécrit au déploiement)

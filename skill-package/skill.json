@@ -61,21 +61,35 @@
 					"name": "premiumJeeViewer",
 					"summary": "Afficheur Jeedom pour Alexa"
 				},
-				"de-DE": {
+				"en-US": {
 					"name": "premiumJeeViewer",
-					"summary": "Jeedom-Anzeige für Alexa",
-					"description": "Skill des Jeedom-Plugins Alexa Premium: zeigt dein Jeedom-Dashboard oder die Ansicht eines Raums auf Alexa-Geräten mit Bildschirm an (Echo Show, Echo Hub, Fire TV).",
+					"summary": "Jeedom display for Alexa",
+					"description": "Skill of the Jeedom Alexa Premium plugin: shows your Jeedom dashboard, or a room's view, on Alexa devices with a screen (Echo Show, Echo Hub, Fire TV).",
 					"examplePhrases": [
-						"Alexa, öffne jeedom anzeige",
-						"Alexa, sag jeedom anzeige, zeige die Küche",
-						"Alexa, sag jeedom anzeige, öffne das Wohnzimmer"
+						"Alexa, open jeedom display",
+						"Alexa, ask jeedom display to show the kitchen",
+						"Alexa, ask jeedom display to open the living room"
 					],
 					"keywords": [
 						"Jeedom",
-						"Hausautomation"
+						"home automation"
 					]
 				},
-				"en-US": {
+				"en-GB": {
+					"name": "premiumJeeViewer",
+					"summary": "Jeedom display for Alexa",
+					"description": "Skill of the Jeedom Alexa Premium plugin: shows your Jeedom dashboard, or a room's view, on Alexa devices with a screen (Echo Show, Echo Hub, Fire TV).",
+					"examplePhrases": [
+						"Alexa, open jeedom display",
+						"Alexa, ask jeedom display to show the kitchen",
+						"Alexa, ask jeedom display to open the living room"
+					],
+					"keywords": [
+						"Jeedom",
+						"home automation"
+					]
+				},
+				"en-CA": {
 					"name": "premiumJeeViewer",
 					"summary": "Jeedom display for Alexa",
 					"description": "Skill of the Jeedom Alexa Premium plugin: shows your Jeedom dashboard, or a room's view, on Alexa devices with a screen (Echo Show, Echo Hub, Fire TV).",
@@ -101,6 +115,20 @@
 					"keywords": [
 						"Jeedom",
 						"domótica"
+					]
+				},
+				"de-DE": {
+					"name": "premiumJeeViewer",
+					"summary": "Jeedom-Anzeige für Alexa",
+					"description": "Skill des Jeedom-Plugins Alexa Premium: zeigt dein Jeedom-Dashboard oder die Ansicht eines Raums auf Alexa-Geräten mit Bildschirm an (Echo Show, Echo Hub, Fire TV).",
+					"examplePhrases": [
+						"Alexa, öffne jeedom anzeige",
+						"Alexa, sag jeedom anzeige, zeige die Küche",
+						"Alexa, sag jeedom anzeige, öffne das Wohnzimmer"
+					],
+					"keywords": [
+						"Jeedom",
+						"Hausautomation"
 					]
 				}
 			}
